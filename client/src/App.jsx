@@ -2,9 +2,21 @@
 import './App.css'
 import { Routes, Route } from 'react-router-dom'
 import Login from './pages/Login.jsx'
+import Register from './pages/Register.jsx'
+import Dashboard from './pages/Dashboard.jsx'
+import ResumeUpload from './pages/ResumeUpload.jsx'
+import { useEffect, useState } from 'react'
 function LandingPage() {
+  const [backendMessage, setBackendMessage] = useState('Checking backend...')
+  useEffect(() => {
+  fetch('http://127.0.0.1:5000/')
+    .then(response => response.json())
+    .then(data => setBackendMessage(data.message))
+    .catch(() => setBackendMessage('Backend connection failed'))
+}, [])
   return (
     <main>
+      <p>Backend Status: {backendMessage}</p>
       {/* Navigation */}
       <header className="navbar">
         <a href="/" className="logo">
@@ -256,6 +268,9 @@ function App() {
     <Routes>
       <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/dashboard" element={<Dashboard />} /><Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/resume/upload" element={<ResumeUpload />} />
     </Routes>
   )
 }
