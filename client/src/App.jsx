@@ -9,8 +9,7 @@ import { useEffect, useState } from 'react'
 function LandingPage() {
   const [backendMessage, setBackendMessage] = useState('Checking backend...')
   useEffect(() => {
-  fetch('http://127.0.0.1:5000/')
-    .then(response => response.json())
+    fetch('http://127.0.0.1:5000/api/health')    .then(response => response.json())
     .then(data => setBackendMessage(data.message))
     .catch(() => setBackendMessage('Backend connection failed'))
 }, [])
